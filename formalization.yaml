@@ -18,7 +18,9 @@ project:
     each dihedral angle from the set, uses that the angles round an edge
     add up to 2 pi (each a dihedral angle, pi or 2 pi), and that pi,
     arctan of the golden ratio, arccos(1/sqrt 6) and arccos(sqrt(2/3)) are
-    linearly independent over Q, by Niven's theorem (Mathlib niven). None of
+    linearly independent over Q, by Niven's theorem (Mathlib niven) and a
+    field argument. Tilings are locally finite by definition, and each
+    polyhedron is one fixed set in exact coordinates. None of
     these theorems is new; the entry gives their Lean proofs. Audience:
     researchers on tilings and polyhedra, and Mathlib contributors.
   authors:
@@ -102,6 +104,23 @@ sources:
       (tetrahedra and octahedra together) is not formalized.
     author_endorsement: "n/a"
 
+  - title: "On angles whose squared trigonometric functions are rational"
+    authors:
+      - "J. H. Conway"
+      - "C. Radin"
+      - "L. Sadun"
+    id: "arXiv:math-ph/9812019"
+    type: "paper"
+    location: "Discrete and Computational Geometry 22 (1999) 321-332; Table 3"
+    relationship: "background"
+    note: >-
+      Cited only (abstract read). The rational (in)dependence of the
+      dihedral angles of the Platonic and Archimedean polyhedra, which the
+      library's lemma3 (pi, alpha, beta, gamma linearly independent over Q)
+      covers for the angles used here. The Lean proof does not follow this
+      paper: it uses Niven's theorem (Mathlib niven) and a field argument.
+    author_endorsement: "n/a"
+
 related_formalizations:
   - id: "https://github.com/DICTOR-Master/dehn-packets-lean/blob/3ba4cfc48c83fb6daac6b6cfbe6ed0aa5dd9445e/Challenge.lean"
     relationship: "other"
@@ -179,7 +198,19 @@ fidelity:
     the cube with corners (+-1,+-1,+-1) in Q, the dodecahedron and the
     icosahedron in Q(sqrt 5). (5) A helper polytope with rational angles has
     every dihedral angle equal to q pi with q a nonnegative rational
-    (RationalAngles).
+    (RationalAngles); that a cube has this property is proved in the
+    library (cu_edgeAngle), not stated in the Challenge. (6) Each polyhedron
+    is one fixed set (teSet, ocSet, cuSet, dhSet, ihSet). Every regular
+    tetrahedron (octahedron, ...) in R^3 is a similar copy of it; this
+    standard fact is not proved in Lean, so the informal reading "no tiling
+    by regular tetrahedra" uses it. (7) Local finiteness is part of the
+    definition of a tiling. With tiles of unbounded or shrinking sizes, an
+    informal tiling may fail to be locally finite (tiles accumulating at a
+    point); such families are not covered, so the informal statement for
+    arbitrary families of similar copies is stronger than the Lean one.
+    (8) The source statements (Aristotle's claim, Gabbrielli-Jiao-Torquato)
+    concern congruent or equal-size tiles; the Lean statements allow each
+    tile its own scale but keep (7).
 
 review:
   status: "self-assessed"
@@ -193,7 +224,8 @@ review:
     script and are rechecked in Lean. The comparator was run locally with
     Lean's kernel, NanoDa and con-ron. Literature: Gabbrielli-Jiao-Torquato
     2012 was read (pages 1-3); Lagarias-Zong 2012 is known through its
-    summaries; Aristotle, Regiomontanus and Niven are cited only. Formal
+    summaries; Aristotle, Regiomontanus and Niven are cited only;
+    Conway-Radin-Sadun 1999 is cited from its abstract. Formal
     search (24 November 2026): web searches for formal proofs (Lean,
     Isabelle, Coq, HOL) that regular tetrahedra do not tile space;
     Mathlib v4.35.0-rc2 (Mathlib.NumberTheory.Niven; no tilings of space by
@@ -211,7 +243,7 @@ review:
 alignment:
   namespace: "PlatonicFillLean"
   statements:
-    - source: "Aristotle's claim refuted (Lagarias-Zong 2012): regular tetrahedra do not fill space"
+    - source: "Aristotle's claim refuted (Lagarias-Zong 2012): regular tetrahedra do not fill space (here: no locally finite tiling by similar copies of teSet)"
       lean: "PlatonicFillLean.aristotle_error"
       module: "Challenge"
       status: "proved"
@@ -243,7 +275,7 @@ alignment:
       lean: "PlatonicFillLean.no_icosa"
       module: "Challenge"
       status: "proved"
-    - source: "Gabbrielli-Jiao-Torquato 2012, p. 3: mixtures of Platonic polyhedra exclude the dodecahedron and icosahedron"
+    - source: "extends Gabbrielli-Jiao-Torquato 2012, p. 3 (pairs of regular polyhedra) to any mixture of the five Platonic polyhedra with rational-angle helpers: no dodecahedron or icosahedron"
       lean: "PlatonicFillLean.platonic_mix"
       module: "Challenge"
       status: "proved"

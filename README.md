@@ -5,17 +5,19 @@ Author: DICTO.
 ## The theorems
 
 A tiling of 3-space here is a family of convex polytopes (bounded intersections of finitely many closed half-spaces)
-with interior points, covering space, with pairwise disjoint interiors, finitely many near each point. Tiles need
-not meet face to face. A tile is a similar copy of a polyhedron: a positive scaling followed by an isometry
-(reflections allowed), each tile at its own scale.
+with interior points, covering space, with pairwise disjoint interiors, finitely many near each point (local finiteness
+is part of the definition). Tiles need not meet face to face. A tile is a similar copy of a polyhedron: a positive scaling followed by an isometry
+(reflections allowed), each tile at its own scale. Each polyhedron is one fixed set in exact coordinates (`teSet`,
+`ocSet`, `cuSet`, `dhSet`, `ihSet`); that every regular tetrahedron is a similar copy of `teSet` (and so on) is the
+standard fact behind the informal reading, not proved in Lean.
 
 - **Aristotle's error** (`aristotle_error`): there is no tiling of 3-space by similar copies of the regular
   tetrahedron.
 - **The octahedron, the dodecahedron, the icosahedron alone** (`octa_alone`, `dodeca_alone`, `icosa_alone`): the
   same for each of these regular polyhedra.
 - **With rational-angle helpers** (`no_tetra`, `no_octa`, `no_dodeca`, `no_icosa`): in a tiling by similar copies of
-  one of these polyhedra and convex polytopes whose dihedral angles are nonnegative rational multiples of π (cubes,
-  for instance), no tile is a copy of that polyhedron.
+  one of these polyhedra and convex polytopes whose dihedral angles are nonnegative rational multiples of π (the cube
+  is one: `cu_edgeAngle` in the library), no tile is a copy of that polyhedron.
 - **Mixtures of Platonic polyhedra** (`platonic_mix`): in a tiling by similar copies of the five Platonic
   polyhedra and such rational-angle polytopes, no tile is a dodecahedron or an icosahedron.
 
@@ -23,7 +25,7 @@ Dihedral angles are read from the set itself: at an edge point, the share of a s
 in the polytope. Around an edge point of any tile the angles of the tiles there add up to 2π, each a dihedral angle
 of its tile, π or 2π (no face-to-face assumption). Every Platonic angle is q·π + a·α + b·β + c·γ with
 α = arctan φ, β = arccos(1/√6), γ = arccos √(2/3), and π, α, β, γ are linearly independent over ℚ (by Niven's
-theorem, Mathlib `niven`). A rational weight on these four numbers, nonnegative on every angle that can occur, then
+theorem, Mathlib `niven`, and a field argument). A rational weight on these four numbers, nonnegative on every angle that can occur, then
 bounds every angle in a ring by 2; the regular tetrahedron's angle arccos(1/3) = 2γ has weight 4 under the weight
 t = 2 on γ, so it cannot occur.
 
@@ -33,7 +35,7 @@ t = 2 on γ, so it cannot occur.
 - `Packets/`: the library of the Dehn packets entry, unchanged (with the Dehn Canon modules in `Packets/Canon/`).
 
 Toolchain `leanprover/lean4:v4.35.0-rc2`, Mathlib `v4.35.0-rc2`. The theorems depend only on the axioms `propext`,
-`Classical.choice` and `Quot.sound`. Neither `sorry` nor `native_decide` is used. Every Lean file uses the module
+`Classical.choice` and `Quot.sound`. The library and `Solution.lean` use neither `sorry` nor `native_decide`. Every Lean file uses the module
 system.
 
 ## How to check
@@ -60,7 +62,9 @@ Regiomontanus (15th century); the history is told by J. C. Lagarias and C. Zong,
 tetrahedra", Notices AMS 59 (2012) 1540–1549. The angle step is Niven's theorem (I. Niven, *Irrational Numbers*,
 Carus Mathematical Monographs 11, 1956), used through Mathlib's `niven`. The edge-angle argument for pairs of regular
 polyhedra, not necessarily face to face, is stated by R. Gabbrielli, Y. Jiao and S. Torquato, Phys. Rev. E 86 (2012)
-041141. None of these theorems is new; this entry gives their Lean proofs.
+041141 (pairs of regular polyhedra; `platonic_mix` treats any mixture of the five with rational-angle helpers). The
+rational independence of these dihedral angles is also in J. H. Conway, C. Radin, L. Sadun, Discrete Comput. Geom. 22
+(1999) 321–332 (arXiv:math-ph/9812019); the Lean proof does not follow it. None of these theorems is new; this entry gives their Lean proofs.
 
 We found no earlier machine-checked proof that regular tetrahedra do not fill space, nor of any Platonic
 non-tiling result proved through dihedral angles. Sources checked (24 November 2026): web searches for formal proofs
