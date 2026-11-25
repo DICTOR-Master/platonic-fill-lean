@@ -1,0 +1,256 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+# formalization.yaml v0.4 (Palomar submission kit; source rule: SOURCE-BASED, known theorems "independently-proves")
+version: "v0.4"
+
+project:
+  name: "Aristotle's Error, Machine-Checked: Regular Tetrahedra Do Not Fill Space"
+  description: >-
+    Aristotle (De Caelo III.8) claimed that regular tetrahedra fill space;
+    the refutation is credited to Regiomontanus, and the history is told by
+    Lagarias and Zong (2012). This entry proves in Lean that there is no
+    tiling of 3-space by similar copies of the regular tetrahedron, and the
+    same for the regular octahedron, dodecahedron and icosahedron. Tiles are
+    convex polytopes, need not meet face to face, and may each have their
+    own scale. With helper tiles whose dihedral angles are nonnegative
+    rational multiples of pi (cubes, for instance), no tile is a copy of
+    the polyhedron; in a tiling by the five Platonic polyhedra and such
+    helpers, no tile is a dodecahedron or an icosahedron. The proof reads
+    each dihedral angle from the set, uses that the angles round an edge
+    add up to 2 pi (each a dihedral angle, pi or 2 pi), and that pi,
+    arctan of the golden ratio, arccos(1/sqrt 6) and arccos(sqrt(2/3)) are
+    linearly independent over Q, by Niven's theorem (Mathlib niven). None of
+    these theorems is new; the entry gives their Lean proofs. Audience:
+    researchers on tilings and polyhedra, and Mathlib contributors.
+  authors:
+    - name: "DICTO"
+      orcid: "0009-0001-2620-2036"
+      github: "DICTOR-Master"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - name: "DICTO"
+      orcid: "0009-0001-2620-2036"
+      github: "DICTOR-Master"
+
+classification:
+  arxiv: ["math.MG"]
+  msc2020: ["52C22", "52B10", "11J72", "03B35"]
+
+sources:
+  - title: "Mysteries in packing regular tetrahedra"
+    authors:
+      - "J. C. Lagarias"
+      - "C. Zong"
+    id: "doi:10.1090/noti918"
+    type: "paper"
+    location: "Notices of the American Mathematical Society 59 (2012) 1540-1549"
+    relationship: "independently-proves"
+    note: >-
+      Cited for the history (not read in full; known through its summaries):
+      Aristotle's claim in De Caelo III.8 that regular tetrahedra fill
+      space, and its refutation. aristotle_error is the Lean proof of the
+      statement that space cannot be tiled by regular tetrahedra, here for
+      similar copies of any sizes, not necessarily face to face.
+    author_endorsement: "n/a"
+  - title: "De Caelo (On the Heavens), Book III, chapter 8"
+    authors:
+      - "Aristotle"
+    type: "book"
+    location: "Book III, chapter 8"
+    relationship: "background"
+    note: >-
+      Cited only (not read). The claim that regular tetrahedra (and cubes)
+      fill space, which aristotle_error refutes.
+    author_endorsement: "n/a"
+  - title: "Regiomontanus's refutation of Aristotle's claim (15th century)"
+    authors:
+      - "Regiomontanus (Johannes Müller)"
+    type: "other"
+    location: "Known through the histories cited here (Lagarias-Zong 2012; history notes of UC Riverside, Math 153)"
+    relationship: "background"
+    note: >-
+      Cited only (not read). The refutation is credited to Regiomontanus;
+      his text is not known to survive. The entry claims only the Lean
+      proof.
+    author_endorsement: "n/a"
+  - title: "Irrational Numbers"
+    authors:
+      - "I. Niven"
+    type: "book"
+    location: "Carus Mathematical Monographs 11, Mathematical Association of America (1956)"
+    relationship: "background"
+    note: >-
+      Cited only (not read). Niven's theorem on the rational values of the
+      cosine at rational multiples of pi, used through Mathlib's niven for
+      the linear independence of pi, alpha, beta, gamma over Q (lemma3 of
+      the library, Packets/Angles.lean).
+    author_endorsement: "n/a"
+  - title: "Families of tessellations of space by elementary polyhedra via retessellations of face-centered-cubic and related tilings"
+    authors:
+      - "R. Gabbrielli"
+      - "Y. Jiao"
+      - "S. Torquato"
+    id: "doi:10.1103/PhysRevE.86.041141"
+    type: "paper"
+    location: "Physical Review E 86 (2012) 041141; page 3"
+    relationship: "independently-proves"
+    note: >-
+      Read (pages 1-3). States, from the dihedral angles, that no pair of
+      regular polyhedra fills space, periodically or not, apart from
+      tetrahedra and octahedra (and cubes). octa_alone, dodeca_alone,
+      icosa_alone and platonic_mix are Lean proofs of parts of this
+      statement, with rational-angle helper tiles added; the positive part
+      (tetrahedra and octahedra together) is not formalized.
+    author_endorsement: "n/a"
+
+related_formalizations:
+  - id: "https://github.com/DICTOR-Master/dehn-packets-lean/blob/3ba4cfc48c83fb6daac6b6cfbe6ed0aa5dd9445e/Challenge.lean"
+    relationship: "other"
+    note: >-
+      The Dehn packets entry. This entry's Packets/ library is a
+      byte-identical copy of 36 of its modules (the Dehn Canon modules under
+      Packets/Canon, Angles, Rings, Tiling, Cones, Lemma2, Pieces, Exact,
+      Values, GenDH, GenIH): tilings, the edge-angle sum, the independence
+      of pi, alpha, beta, gamma, similar copies, the dodecahedron and the
+      icosahedron. New here: PlatonicFill/ (the tetrahedron, octahedron and
+      cube, the five dihedral angles, the weights and the theorems).
+  - id: "https://github.com/DICTOR-Master/dehn-canon-lean/blob/9ea20f6dfd64fc3f10f64b1fb59a754a77e5cf57/Challenge.lean"
+    relationship: "other"
+    note: >-
+      The Dehn Canon entry (PALOMAR-2026-11-20-000003): the set-defined
+      angle used here, through the Dehn packets entry.
+
+status:
+  scope: >-
+    Formalized (Challenge, nine theorems): aristotle_error (no tiling of R^3
+    by similar copies of the regular tetrahedron); octa_alone, dodeca_alone,
+    icosa_alone (the same for the regular octahedron, dodecahedron,
+    icosahedron); no_tetra, no_octa, no_dodeca, no_icosa (with helper tiles
+    whose dihedral angles are nonnegative rational multiples of pi, no tile
+    is a copy of the polyhedron); platonic_mix (in a tiling by similar
+    copies of the five Platonic polyhedra and such helpers, no tile is a
+    dodecahedron or an icosahedron). The library also proves the dihedral
+    angle of each Platonic polyhedron read from the set (te_edgeAngle,
+    oc_edgeAngle, cu_edgeAngle, dh_edgeAngle, ih_edgeAngle), not in the
+    Challenge. Not formalized: that the cube tiles alone, and the
+    tetrahedron-octahedron tiling.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: []
+
+automation:
+  methods:
+    - method: "agent"
+      models: ["Claude Opus (Anthropic)"]
+      framework: "Claude Code (Opus)"
+      tool_setup: >-
+        A Claude Code agent wrote the definitions, the statements and the
+        proofs, extended the exact generator of the edge data (plain Python)
+        to the tetrahedron, octahedron and cube, and ran the Lake builds and
+        the comparator against Mathlib v4.35.0-rc2 on Linux compute machines.
+      cost:
+        wall_time: "about one day (24 November 2026), on the Dehn packets library"
+        spend_usd: "subscription-based"
+        hardware: "local Linux machines"
+      prompting_notes: >-
+        DICTO asked for Aristotle's error in Lean as the next step on the
+        Dehn packets library, and for the other Platonic polyhedra with it.
+  spend_usd: "subscription-based"
+  notes: >-
+    DICTO posed the formalization and directed the work; every definition,
+    statement and proof was written by the agent. Every build was checked by
+    a full recompilation and #print axioms (only propext, Classical.choice
+    and Quot.sound). No independent human line-by-line audit of the Lean
+    code has been made.
+
+fidelity:
+  divergences: >-
+    (1) Dihedral angles are read from the set: at a point where the
+    directions v with v and -v in the tangent cone span a line K, the angle
+    is 2 pi times the area of the cone's part of the unit disc of K-perp over
+    the disc's area (EdgeAngle). (2) A tiling (ConvexTiling) is a family of
+    convex polytopes (bounded intersections of finitely many closed
+    half-spaces) with interior points, covering space, with pairwise
+    disjoint interiors, locally finite; it need not be face to face.
+    (3) A similar copy is a positive scaling followed by an isometry
+    (reflections allowed); each tile has its own scale, so the statements
+    cover congruent copies as a special case. (4) The polyhedra are given by
+    face normals and offsets: the tetrahedron with corners (1,1,1),
+    (1,-1,-1), (-1,1,-1), (-1,-1,1), the octahedron with corners +-e_i and
+    the cube with corners (+-1,+-1,+-1) in Q, the dodecahedron and the
+    icosahedron in Q(sqrt 5). (5) A helper polytope with rational angles has
+    every dihedral angle equal to q pi with q a nonnegative rational
+    (RationalAngles).
+
+review:
+  status: "self-assessed"
+  reviewers:
+    - "none"
+  notes: >-
+    Every definition and statement in the Challenge is copied from the Lean
+    library (qualifiers dropped, docstrings lightly reworded); the Solution
+    is the Challenge word for word with each proof transferred from the
+    library. The edge data of the polyhedra were generated by an exact
+    script and are rechecked in Lean. The comparator was run locally with
+    Lean's kernel, NanoDa and con-ron. Literature: Gabbrielli-Jiao-Torquato
+    2012 was read (pages 1-3); Lagarias-Zong 2012 is known through its
+    summaries; Aristotle, Regiomontanus and Niven are cited only. Formal
+    search (24 November 2026): web searches for formal proofs (Lean,
+    Isabelle, Coq, HOL) that regular tetrahedra do not tile space;
+    Mathlib v4.35.0-rc2 (Mathlib.NumberTheory.Niven; no tilings of space by
+    polytopes); the Isabelle AFP search page; Formalizing 100 Theorems, #50
+    "The Number of Platonic Solids" (Lean, HOL Light, Isabelle), a
+    classification, not a tiling result; Flyspeck (HOL Light), which
+    handles tetrahedra and dihedral angles inside the Kepler proof but does
+    not state this non-tiling; formal tiling impossibility proofs (the
+    mutilated chessboard in Isabelle, Keller's conjecture in dimension 8 in
+    Lean, 2D triangle tilings), none using dihedral angles in 3D; Mizar and
+    Metamath by web search only. We found no earlier machine-checked proof
+    that regular tetrahedra do not fill space, nor of any Platonic
+    non-tiling result proved through dihedral angles.
+
+alignment:
+  namespace: "PlatonicFillLean"
+  statements:
+    - source: "Aristotle's claim refuted (Lagarias-Zong 2012): regular tetrahedra do not fill space"
+      lean: "PlatonicFillLean.aristotle_error"
+      module: "Challenge"
+      status: "proved"
+    - source: "Gabbrielli-Jiao-Torquato 2012, p. 3: the regular octahedron alone"
+      lean: "PlatonicFillLean.octa_alone"
+      module: "Challenge"
+      status: "proved"
+    - source: "Gabbrielli-Jiao-Torquato 2012, p. 3: the regular dodecahedron alone"
+      lean: "PlatonicFillLean.dodeca_alone"
+      module: "Challenge"
+      status: "proved"
+    - source: "Gabbrielli-Jiao-Torquato 2012, p. 3: the regular icosahedron alone"
+      lean: "PlatonicFillLean.icosa_alone"
+      module: "Challenge"
+      status: "proved"
+    - source: "the tetrahedron with rational-angle helpers"
+      lean: "PlatonicFillLean.no_tetra"
+      module: "Challenge"
+      status: "proved"
+    - source: "the octahedron with rational-angle helpers"
+      lean: "PlatonicFillLean.no_octa"
+      module: "Challenge"
+      status: "proved"
+    - source: "the dodecahedron with rational-angle helpers"
+      lean: "PlatonicFillLean.no_dodeca"
+      module: "Challenge"
+      status: "proved"
+    - source: "the icosahedron with rational-angle helpers"
+      lean: "PlatonicFillLean.no_icosa"
+      module: "Challenge"
+      status: "proved"
+    - source: "Gabbrielli-Jiao-Torquato 2012, p. 3: mixtures of Platonic polyhedra exclude the dodecahedron and icosahedron"
+      lean: "PlatonicFillLean.platonic_mix"
+      module: "Challenge"
+      status: "proved"
+
+acknowledgements: >-
+  Mathlib (inner product spaces, measure theory, Niven's theorem, the golden
+  ratio); Aristotle, whose claim this is; Regiomontanus, credited with its
+  refutation; J. C. Lagarias and C. Zong for its history; I. Niven; R.
+  Gabbrielli, Y. Jiao and S. Torquato for the edge-angle argument on pairs
+  of regular polyhedra.

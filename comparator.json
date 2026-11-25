@@ -1,0 +1,22 @@
+{
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+    "PlatonicFillLean.aristotle_error",
+    "PlatonicFillLean.octa_alone",
+    "PlatonicFillLean.dodeca_alone",
+    "PlatonicFillLean.icosa_alone",
+    "PlatonicFillLean.no_tetra",
+    "PlatonicFillLean.no_octa",
+    "PlatonicFillLean.no_dodeca",
+    "PlatonicFillLean.no_icosa",
+    "PlatonicFillLean.platonic_mix"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "enable_nanoda": true
+}
